@@ -1,0 +1,30 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+Description: 'Ping TimerCheck.io URL when TownClock.io chimes'
+Parameters:
+  topic:
+    Description: TownClock SNS Topic ARN to subscribe to
+    Type: String
+  url:
+    Description: TimerCheck.io URL to ping when TownClock.io chimes
+    Type: String
+#    Default: https://timercheck.io/townclock-ping-timercheck-default/3600
+Resources:
+  PingFunction:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      FunctionName: townclock-ping-timercheck
+      Description: Ping TimerCheck.io timer on TownClock.io chime
+      CodeUri: ./code
+      Runtime: python3.6
+      Handler: lambda_function.lambda_handler
+      MemorySize: 1536
+      Timeout: 60
+      Environment:
+        Variables:
+          url: !Ref url
+      Events:
+        Chime:
+          Type: SNS
+          Properties:
+            Topic: !Ref topic
