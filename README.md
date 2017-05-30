@@ -2,10 +2,10 @@
 
 Ping a TimerCheck.io URL every time TownClock.io chimes
 
-TownClock.io should be chiming every 15 minutes around the clock,
-forever in us-east-1 and us-west-2. A TownClock.io chime is a message
-sent to a public SNS topic, and is broadcast to anybody who subscribes
-their AWS Lambda function, SQS queue, or email address.
+TownClock.io should be chiming every 15 minutes, in us-east-1 and
+us-west-2, around the clock, forever. A TownClock.io chime is a
+message sent to a public SNS topic, and is broadcast to anybody who
+subscribes their AWS Lambda function, SQS queue, or email address.
 
 This project creates an AWS Lambda function and subscribes it to the
 TownClock.io SNS Topic. Every time it is run, it resets the a
