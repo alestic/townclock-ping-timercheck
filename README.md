@@ -25,10 +25,6 @@ Set up buckets:
       aws s3 mb --region "$region" s3://YOURBUCKET-$region
     done
 
-Install prerequisites:
-
-    make setup
-
 Deploy to AWS account:
 
     make \
