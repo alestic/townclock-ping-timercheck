@@ -22,9 +22,9 @@ would consider the service to be "down" and would send me an alert.
 
 See also:
 
-- http://TimerCheck.io
-
 - http://TownClock.io
+
+- https://TimerCheck.io
 
 This software uses AWS Lambda subscribed to an SNS Topic. It deploys
 using AWS SAM (Serverless Application Model) which generates AWS
