@@ -49,7 +49,8 @@ $(CLOUDFORMATION): $(SAM) $(SOURCE) Makefile
 	  --s3-bucket $(PACKAGE_BUCKET) \
 	  --s3-prefix $(PACKAGE_PREFIX)
 
-$(CODELIB): Makefile
+$(CODELIB): Makefile $(VIRTUALENV)/bin/activate
+	mkdir -p $(CODELIB)
 	rsync -va $(VIRTUALENV)/lib/python3.6/site-packages/ $@/
 
 .PHONY: package
