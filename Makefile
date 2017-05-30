@@ -10,6 +10,19 @@ CLOUDFORMATION=cloudformation-template-$(REGION).yaml
 PACKAGE_PREFIX=sam-package
 STACK_NAME=townclock-ping-timercheck
 
+ifndef REGION
+$(error Please specify REGION=)
+endif
+ifndef PACKAGE_BUCKET
+$(error Please specify PACKAGE_BUCKET=)
+endif
+ifndef TIMER_URL
+$(error Please specify TIMER_URL=)
+endif
+ifndef TOPIC_ARN
+$(error Please specify TOPIC_ARN=)
+endif
+
 .PHONY: help
 help:: ## Show help text
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  %-10s %s\n", $$1, $$2}'
@@ -27,27 +40,6 @@ setup:: ## Install development prerequisites and virtualenv
 	sudo -H pip3 install virtualenv
 
 setup:: virtualenv
-
-ifndef REGION
-package deploy::
-	@echo "ERROR: PLease specify REGION="
-	@exit 1
-else
-ifndef PACKAGE_BUCKET
-package deploy::
-	@echo "ERROR: PLease specify PACKAGE_BUCKET="
-	@exit 1
-else
-ifndef TIMER_URL
-package deploy::
-	@echo "ERROR: PLease specify TIMER_URL="
-	@exit 1
-else
-ifndef TOPIC_ARN
-package deploy::
-	@echo "ERROR: PLease specify TOPIC_ARN="
-	@exit 1
-else
 
 $(CLOUDFORMATION): $(SAM) $(SOURCE) Makefile
 	aws cloudformation package \
@@ -74,10 +66,6 @@ deploy:: package ## Deploy AWS Lambda function
 	    "topic=$(TOPIC_ARN)" \
 	    "url=$(TIMER_URL)" \
 	  --capabilities CAPABILITY_IAM
-endif # TOPIC_ARN
-endif # TIMER_URL
-endif # PACKAGE_BUCKET
-endif # REGION
 
 .PHONY: test
 test:: ## Run in local dev environment
