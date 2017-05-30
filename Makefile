@@ -55,7 +55,7 @@ $(CODELIB): Makefile $(VIRTUALENV)/bin/activate
 
 .PHONY: package
 package:: ## Package AWS Lambda function and generate CloudFormation template
-package:: $(CLOUDFORMATION) $(CODELIB)
+package:: $(CODELIB) $(CLOUDFORMATION)
 
 .PHONY: deploy
 deploy:: package ## Deploy AWS Lambda function
