@@ -99,3 +99,5 @@ ENV/
 
 # mypy
 .mypy_cache/
+.virtualenv/
+cloudformation-template-us-*.yaml
