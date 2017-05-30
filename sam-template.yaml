@@ -8,7 +8,6 @@ Parameters:
   url:
     Description: TimerCheck.io URL to ping when TownClock.io chimes
     Type: String
-#    Default: https://timercheck.io/townclock-ping-timercheck-default/3600
 Resources:
   PingFunction:
     Type: 'AWS::Serverless::Function'
